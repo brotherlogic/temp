@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"time"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
@@ -67,24 +66,10 @@ func main() {
 	server.PrepServer()
 	server.Register = server
 
-	err := server.RegisterServerV2("basicjob", false, true)
+	err := server.RegisterServerV2("temp", false, true)
 	if err != nil {
 		return
 	}
-
-	server.Log(fmt.Sprintf("Starting election"))
-	time.Sleep(time.Second * 2)
-	cancel, err := server.Elect()
-	if err != nil {
-		server.Log(fmt.Sprintf("Error performing election: %v", err))
-		time.Sleep(time.Second * 30)
-		return
-	}
-	server.Log(fmt.Sprintf("I have been elected"))
-	time.Sleep(time.Second * 6)
-	cancel()
-	server.Log(fmt.Sprintf("ELECTION IS COMPLETE"))
-	time.Sleep(time.Second * 5)
 
 	fmt.Printf("%v", server.Serve())
 }
