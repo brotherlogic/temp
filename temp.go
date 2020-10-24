@@ -5,17 +5,21 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"time"
 
 	"github.com/brotherlogic/goserver"
+	"github.com/brotherlogic/goserver/utils"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
 	pbg "github.com/brotherlogic/goserver/proto"
+	kmpb "github.com/brotherlogic/keymapper/proto"
 )
 
 //Server main server type
 type Server struct {
 	*goserver.GoServer
+	key string
 }
 
 // Init builds the server
@@ -70,6 +74,20 @@ func main() {
 	if err != nil {
 		return
 	}
+
+	ctx, cancel := utils.ManualContext("temp", "temp", time.Minute, false)
+	conn, err := server.FDialServer(ctx, "keymapper")
+	if err != nil {
+		log.Fatalf("Cannot reach keymapper: %v", err)
+	}
+	client := kmpb.NewKeymapperServiceClient(conn)
+	resp, err := client.Get(ctx, &kmpb.GetRequest{Key: "kaitera_token"})
+	if err != nil {
+		log.Fatalf("Cannot read token: %v", err)
+	}
+	server.key = resp.GetKey().GetValue()
+	cancel()
+	conn.Close()
 
 	fmt.Printf("%v", server.Serve())
 }
