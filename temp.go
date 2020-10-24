@@ -155,5 +155,7 @@ func main() {
 	cancel()
 	conn.Close()
 
+	go server.run()
+
 	fmt.Printf("%v", server.Serve())
 }
