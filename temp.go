@@ -145,6 +145,12 @@ func main() {
 		log.Fatalf("Cannot read token: %v", err)
 	}
 	server.key = resp.GetKey().GetValue()
+
+	resp, err = client.Get(ctx, &kmpb.GetRequest{Key: "kaitera_id"})
+	if err != nil {
+		log.Fatalf("Cannot read token: %v", err)
+	}
+	server.client = resp.GetKey().GetValue()
 	cancel()
 	conn.Close()
 
