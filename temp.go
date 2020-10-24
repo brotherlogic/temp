@@ -103,6 +103,7 @@ func (s *Server) run() {
 			continue
 		}
 
+		s.Log(fmt.Sprintf("%v from %v", kr, string(body)))
 		temp.Set(float64(kr.InfoAqi.data.temp))
 
 		time.Sleep(time.Minute)
