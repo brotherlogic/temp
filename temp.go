@@ -61,16 +61,16 @@ type kaiteraResponse struct {
 }
 
 type infoAqi struct {
-	ts   string      `json:"ts"`
-	data kaiteraData `json:"data"`
+	Ts   string      `json:"ts"`
+	Data kaiteraData `json:"data"`
 }
 
 type kaiteraData struct {
-	humidity float32 `json:"humidity"`
-	pm10     float32 `json:"pm10"`
-	pm25     float32 `json:"pm25"`
-	st03     float32 `json:"st03.rtvoc"`
-	temp     float32 `json:"temp"`
+	Humidity float32 `json:"humidity"`
+	Pm10     float32 `json:"pm10"`
+	Pm25     float32 `json:"pm25"`
+	St03     float32 `json:"st03.rtvoc"`
+	Temp     float32 `json:"temp"`
 }
 
 var (
@@ -104,7 +104,7 @@ func (s *Server) run() {
 		}
 
 		s.Log(fmt.Sprintf("%v from %v", kr, string(body)))
-		temp.Set(float64(kr.InfoAqi.data.temp))
+		temp.Set(float64(kr.InfoAqi.Data.Temp))
 
 		time.Sleep(time.Minute)
 	}
