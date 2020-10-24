@@ -87,6 +87,7 @@ func main() {
 	}
 	server.key = resp.GetKey().GetValue()
 	cancel()
+	conn.Close()
 
 	fmt.Printf("%v", server.Serve())
 }
