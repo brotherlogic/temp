@@ -157,5 +157,5 @@ func main() {
 
 	go server.run()
 
-	fmt.Printf("%v", server.Serve())
+	server.Serve()
 }
