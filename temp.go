@@ -15,6 +15,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 
 	pbg "github.com/brotherlogic/goserver/proto"
 	kmpb "github.com/brotherlogic/keymapper/proto"
@@ -143,7 +145,10 @@ func main() {
 	client := kmpb.NewKeymapperServiceClient(conn)
 	resp, err := client.Get(ctx, &kmpb.GetRequest{Key: "kaitera_token"})
 	if err != nil {
-		log.Fatalf("Cannot read token: %v", err)
+		if status.Convert(err).Code() != codes.Unavailable {
+			log.Fatalf("Cannot read token: %v", err)
+		}
+		return
 	}
 	server.key = resp.GetKey().GetValue()
 
