@@ -140,12 +140,15 @@ func main() {
 	ctx, cancel := utils.ManualContext("temp", "temp", time.Minute, false)
 	conn, err := server.FDialServer(ctx, "keymapper")
 	if err != nil {
-		log.Fatalf("Cannot reach keymapper: %v", err)
+		if status.Convert(err).Code() == codes.Unknown {
+			log.Fatalf("Cannot reach keymapper: %v", err)
+		}
+		return
 	}
 	client := kmpb.NewKeymapperServiceClient(conn)
 	resp, err := client.Get(ctx, &kmpb.GetRequest{Key: "kaitera_token"})
 	if err != nil {
-		if status.Convert(err).Code() != codes.Unavailable {
+		if status.Convert(err).Code() == codes.Unknown {
 			log.Fatalf("Cannot read token: %v", err)
 		}
 		return
@@ -154,7 +157,10 @@ func main() {
 
 	resp, err = client.Get(ctx, &kmpb.GetRequest{Key: "kaitera_id"})
 	if err != nil {
-		log.Fatalf("Cannot read token: %v", err)
+		if status.Convert(err).Code() == codes.Unknown {
+			log.Fatalf("Cannot read token: %v", err)
+		}
+		return
 	}
 	server.client = resp.GetKey().GetValue()
 	cancel()
