@@ -80,6 +80,10 @@ var (
 		Name: "temp_temp",
 		Help: "The number of server requests",
 	})
+	tvoc = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_tvoc",
+		Help: "TVOC measure",
+	})
 )
 
 func (s *Server) run() {
@@ -106,7 +110,9 @@ func (s *Server) run() {
 		}
 
 		s.Log(fmt.Sprintf("%v from %v", kr, string(body)))
+
 		temp.Set(float64(kr.InfoAqi.Data.Temp))
+		tvoc.Set(float64(kr.InfoAqi.Data.St03))
 
 		time.Sleep(time.Minute)
 	}
@@ -137,7 +143,7 @@ func main() {
 		return
 	}
 
-	ctx, cancel := utils.ManualContext("temp", "temp", time.Minute, false)
+	ctx, cancel := utils.ManualContext("temp", time.Minute)
 	conn, err := server.FDialServer(ctx, "keymapper")
 	if err != nil {
 		if status.Convert(err).Code() == codes.Unknown {
