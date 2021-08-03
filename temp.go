@@ -113,8 +113,6 @@ func (s *Server) run() {
 			continue
 		}
 
-		s.Log(fmt.Sprintf("%v from %v", kr, string(body)))
-
 		temp.Set(float64(kr.InfoAqi.Data.Temp))
 		tvoc.Set(float64(kr.InfoAqi.Data.St03))
 
@@ -124,6 +122,8 @@ func (s *Server) run() {
 		} else {
 			lastPull.Set(float64(timev.Unix()))
 		}
+
+		s.Log(fmt.Sprintf("%v from %v at %v", kr, string(body), timev))
 
 		time.Sleep(time.Minute)
 	}
