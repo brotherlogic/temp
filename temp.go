@@ -84,6 +84,10 @@ var (
 		Name: "temp_tvoc",
 		Help: "TVOC measure",
 	})
+	lastPull = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_last_pull",
+		Help: "TVOC measure",
+	})
 )
 
 func (s *Server) run() {
@@ -113,6 +117,13 @@ func (s *Server) run() {
 
 		temp.Set(float64(kr.InfoAqi.Data.Temp))
 		tvoc.Set(float64(kr.InfoAqi.Data.St03))
+
+		timev, err := time.Parse("2006-01-02T15:04:05Z", kr.InfoAqi.Ts)
+		if err != nil {
+			s.Log(fmt.Sprintf("PARSE ERROR from %v -> %v", kr.InfoAqi.Ts, err))
+		} else {
+			lastPull.Set(float64(timev.Unix()))
+		}
 
 		time.Sleep(time.Minute)
 	}
