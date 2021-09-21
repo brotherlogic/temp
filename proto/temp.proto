@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package temp;
+
+option go_package = "github.com/brotherlogic/temp/proto";
+
+message Config {
+  string client_id = 1;
+  string client_secret = 2;
+  string code = 3;
+  string refresh = 4;
+}
+
+message SetConfigRequest{
+  string client_id = 1;
+  string client_secret = 2;
+  string auth_code = 3;
+}
+
+message SetConfigResponse {}
+
+message ProcRequest {}
+
+message ProcResponse {
+  float nest_temperature = 1;
+  float nest_humidity = 2;
+  float nest_outside_temp = 3;
+}
+
+service TempService {
+  rpc Proc(ProcRequest) returns (ProcResponse) {};
+  rpc SetConfig(SetConfigRequest) returns (SetConfigResponse) {};
+}
