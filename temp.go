@@ -20,6 +20,7 @@ import (
 
 	pbg "github.com/brotherlogic/goserver/proto"
 	kmpb "github.com/brotherlogic/keymapper/proto"
+	pb "github.com/brotherlogic/temp/proto"
 )
 
 //Server main server type
@@ -39,7 +40,7 @@ func Init() *Server {
 
 // DoRegister does RPC registration
 func (s *Server) DoRegister(server *grpc.Server) {
-
+	pb.RegisterTempServiceServer(server, s)
 }
 
 // ReportHealth alerts if we're not healthy
