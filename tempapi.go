@@ -12,6 +12,28 @@ import (
 	pb "github.com/brotherlogic/temp/proto"
 )
 
+type Humidity struct {
+	Value int `json:"ambientHumidityPercent"`
+}
+
+type Temperature struct {
+	Value float32 `json:"ambientTemperatureCelsius"`
+}
+
+type Trait struct {
+	HumidityVal    Humidity    `json:"sdm.devices.traits.Humidity"`
+	TemperatureVal Temperature `json:"sdm.devices.traits.Temperature"`
+}
+
+type Device struct {
+	Name   string  `json:"name"`
+	Traits []Trait `json:"traits"`
+}
+
+type DevResp struct {
+	Devices []Device `json:"devices"`
+}
+
 func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcResponse, error) {
 	config, err := s.loadConfig(ctx)
 	if err != nil {
@@ -39,8 +61,13 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	if err != nil {
 		return nil, err
 	}
+	devices := &DevResp{}
+	err = json.Unmarshal(body, devices)
+	if err != nil {
+		return nil, err
+	}
 
-	s.Log(fmt.Sprintf("HERE %v", string(body)))
+	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
 
 	return nil, fmt.Errorf("Not implemented yet")
 }
