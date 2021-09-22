@@ -10,6 +10,19 @@ import (
 	"golang.org/x/net/context"
 
 	pb "github.com/brotherlogic/temp/proto"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+)
+
+var (
+	ntemp = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_nsettemp",
+		Help: "The number of server requests",
+	})
+	nhumid = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_nesthum",
+		Help: "TVOC measure",
+	})
 )
 
 type Humidity struct {
@@ -68,6 +81,9 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	}
 
 	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
+
+	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
+	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 
 	return &pb.ProcResponse{
 		NestTemperature: devices.Devices[0].Traits.TemperatureVal.Value,
