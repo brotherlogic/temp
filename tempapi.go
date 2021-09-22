@@ -69,7 +69,10 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 
 	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
 
-	return nil, fmt.Errorf("Not implemented yet")
+	return &pb.ProcResponse{
+		NestTemperature: devices.Devices[0].Traits.TemperatureVal.Value,
+		NestHumidity:    float32(devices.Devices[0].Traits.HumidityVal.Value),
+	}, nil
 }
 
 type CodeResp struct {
