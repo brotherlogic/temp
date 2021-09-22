@@ -16,7 +16,7 @@ import (
 
 var (
 	ntemp = promauto.NewGauge(prometheus.GaugeOpts{
-		Name: "temp_nsettemp",
+		Name: "temp_nesttemp",
 		Help: "The number of server requests",
 	})
 	nhumid = promauto.NewGauge(prometheus.GaugeOpts{
