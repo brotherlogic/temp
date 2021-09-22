@@ -13,6 +13,35 @@ import (
 )
 
 func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcResponse, error) {
+	config, err := s.loadConfig(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	url := fmt.Sprintf(
+		"https://smartdevicemanagement.googleapis.com/v1/enterprises/%v/devices", config.GetProjectId())
+
+	hr, err := http.NewRequest("GET", url, strings.NewReader(""))
+	if err != nil {
+		return nil, err
+	}
+	hr.Header.Add("Content-Type", "application/json")
+	hr.Header.Add("Authorization", fmt.Sprintf("Bearer %v", config.GetCode()))
+
+	client := &http.Client{}
+	resp, err := client.Do(hr)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	s.Log(fmt.Sprintf("HERE %v", string(body)))
+
 	return nil, fmt.Errorf("Not implemented yet")
 }
 
@@ -60,6 +89,10 @@ func (s *Server) SetConfig(ctx context.Context, req *pb.SetConfigRequest) (*pb.S
 
 	if req.GetClientSecret() != "" {
 		config.ClientSecret = req.GetClientSecret()
+	}
+
+	if req.GetProjectId() != "" {
+		config.ProjectId = req.GetProjectId()
 	}
 
 	if req.GetAuthCode() != "" {

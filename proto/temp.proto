@@ -9,12 +9,14 @@ message Config {
   string client_secret = 2;
   string code = 3;
   string refresh = 4;
+  string project_id = 5;
 }
 
 message SetConfigRequest{
   string client_id = 1;
   string client_secret = 2;
   string auth_code = 3;
+  string project_id = 4;
 }
 
 message SetConfigResponse {}

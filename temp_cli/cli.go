@@ -34,10 +34,11 @@ func main() {
 		var clientId = setFlags.String("client_id", "", "Id of the record to add")
 		var clientSecret = setFlags.String("client_secret", "", "Cost of the record")
 		var code = setFlags.String("code", "", "")
+		var project = setFlags.String("project_id", "", "")
 
 		if err := setFlags.Parse(os.Args[2:]); err == nil {
-			if (*clientId != "" && *clientSecret != "") || *code != "" {
-				_, err := client.SetConfig(ctx, &pb.SetConfigRequest{ClientId: *clientId, ClientSecret: *clientSecret, AuthCode: *code})
+			if (*clientId != "" && *clientSecret != "") || *code != "" || *project != "" {
+				_, err := client.SetConfig(ctx, &pb.SetConfigRequest{ProjectId: *project, ClientId: *clientId, ClientSecret: *clientSecret, AuthCode: *code})
 				if err != nil {
 					log.Fatalf("Bad request: %v", err)
 				}
