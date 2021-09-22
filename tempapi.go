@@ -17,11 +17,11 @@ import (
 var (
 	ntemp = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "temp_nesttemp",
-		Help: "The number of server requests",
+		Help: "Temperature from the thermostat",
 	})
 	nhumid = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "temp_nesthum",
-		Help: "TVOC measure",
+		Help: "Humidity from the thermostat",
 	})
 )
 
