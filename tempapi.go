@@ -42,7 +42,7 @@ func (s *Server) getAuth(ctx context.Context, config *pb.Config, code string) (s
 	if err != nil {
 		return "", "", err
 	}
-	s.Log(fmt.Sprintf("GOT %v -> %v", string(body), cr))
+	s.Log(fmt.Sprintf("NOWGOT %v -> %v", string(body), cr))
 
 	return cr.AccessToken, cr.RefreshToken, nil
 
