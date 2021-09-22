@@ -30,13 +30,14 @@ func main() {
 
 	switch os.Args[1] {
 	case "set":
-		setFlags := flag.NewFlagSet("SetConfig", flag.ExitOnError)
+		setFlags := flag.NewFlagSet("SetConfig", flag.ContinueOnError)
 		var clientId = setFlags.String("client_id", "", "Id of the record to add")
 		var clientSecret = setFlags.String("client_secret", "", "Cost of the record")
+		var code = setFlags.String("code", "", "")
 
 		if err := setFlags.Parse(os.Args[2:]); err == nil {
-			if *clientId != "" && *clientSecret != "" {
-				_, err := client.SetConfig(ctx, &pb.SetConfigRequest{ClientId: *clientId, ClientSecret: *clientSecret})
+			if (*clientId != "" && *clientSecret != "") || *code != "" {
+				_, err := client.SetConfig(ctx, &pb.SetConfigRequest{ClientId: *clientId, ClientSecret: *clientSecret, AuthCode: *code})
 				if err != nil {
 					log.Fatalf("Bad request: %v", err)
 				}

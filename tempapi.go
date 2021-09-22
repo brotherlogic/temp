@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +14,11 @@ import (
 
 func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcResponse, error) {
 	return nil, fmt.Errorf("Not implemented yet")
+}
+
+type CodeResp struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 func (s *Server) getAuth(ctx context.Context, config *pb.Config, code string) (string, string, error) {
@@ -31,9 +37,14 @@ func (s *Server) getAuth(ctx context.Context, config *pb.Config, code string) (s
 		return "", "", err
 	}
 
-	s.Log(fmt.Sprintf("GOT %v", string(body)))
+	cr := &CodeResp{}
+	err = json.Unmarshal(body, cr)
+	if err != nil {
+		return "", "", err
+	}
+	s.Log(fmt.Sprintf("GOT %v -> %v", string(body), cr))
 
-	return "", "", fmt.Errorf("Not implemented")
+	return cr.AccessToken, cr.RefreshToken, nil
 
 }
 
