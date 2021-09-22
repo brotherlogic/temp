@@ -26,8 +26,8 @@ type Trait struct {
 }
 
 type Device struct {
-	Name   string  `json:"name"`
-	Traits []Trait `json:"traits"`
+	Name   string `json:"name"`
+	Traits Trait  `json:"traits"`
 }
 
 type DevResp struct {
