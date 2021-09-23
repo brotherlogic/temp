@@ -61,7 +61,7 @@ func (s *Server) refresh(ctx context.Context, config *pb.Config) error {
 		return err
 	}
 
-	s.Log(fmt.Sprintf("BOUNCE %v", string(body)))
+	s.Log(fmt.Sprintf("BOUNCE with client %v -> %v", config.GetClientId(), string(body)))
 
 	cr := &CodeResp{}
 	err = json.Unmarshal(body, cr)
