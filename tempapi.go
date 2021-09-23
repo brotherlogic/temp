@@ -110,8 +110,6 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		return nil, err
 	}
 
-	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
-
 	if len(devices.Devices) == 0 {
 		err = s.refresh(ctx, config)
 		if err != nil {
@@ -119,6 +117,8 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		}
 		return s.Proc(ctx, req)
 	}
+
+	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
 
 	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))

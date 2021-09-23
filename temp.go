@@ -70,7 +70,7 @@ func (s *Server) loadConfig(ctx context.Context) (*pb.Config, error) {
 	client := dspb.NewDStoreServiceClient(conn)
 	res, err := client.Read(ctx, &dspb.ReadRequest{Key: CONFIG_KEY})
 	if err != nil {
-		if status.Convert(err).Code() == codes.NotFound {
+		if status.Convert(err).Code() == codes.InvalidArgument {
 			return &pb.Config{}, nil
 		}
 
