@@ -6,11 +6,15 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 
+	google_protobuf "github.com/golang/protobuf/ptypes/any"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"golang.org/x/net/context"
+	"google.golang.org/protobuf/proto"
 
+	qpb "github.com/brotherlogic/queue/proto"
 	pb "github.com/brotherlogic/temp/proto"
 )
 
@@ -119,10 +123,25 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 
+	conn2, err2 := s.FDialServer(ctx, "queue")
+	if err2 != nil {
+		return nil, err2
+	}
+	defer conn2.Close()
+	qclient := qpb.NewQueueServiceClient(conn2)
+	upup := &pb.ProcRequest{}
+	data, _ := proto.Marshal(upup)
+	_, err3 := qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
+		QueueName: "temp",
+		RunTime:   time.Now().Add(time.Minute).Unix(),
+		Payload:   &google_protobuf.Any{Value: data},
+		Key:       "temp",
+	})
+
 	return &pb.ProcResponse{
 		NestTemperature: devices.Devices[0].Traits.TemperatureVal.Value,
 		NestHumidity:    float32(devices.Devices[0].Traits.HumidityVal.Value),
-	}, nil
+	}, err3
 }
 
 type CodeResp struct {

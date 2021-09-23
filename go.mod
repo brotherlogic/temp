@@ -8,6 +8,7 @@ require (
 	github.com/brotherlogic/gobuildslave v0.0.0-20210911035745-f8870470321e // indirect
 	github.com/brotherlogic/goserver v0.0.0-20210829185834-0049c0c44546
 	github.com/brotherlogic/keymapper v0.0.0-20210820140329-0a4c6cea65e8
+	github.com/brotherlogic/queue v0.0.0-20210918172324-3a29dd363cb9
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.11.0
 	golang.org/x/net v0.0.0-20210917221730-978cfadd31cf
