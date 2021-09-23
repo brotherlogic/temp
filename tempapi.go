@@ -204,5 +204,6 @@ func (s *Server) SetConfig(ctx context.Context, req *pb.SetConfigRequest) (*pb.S
 		config.Refresh = refresh
 	}
 
+	s.Log(fmt.Sprintf("New config %v", config))
 	return &pb.SetConfigResponse{}, s.saveConfig(ctx, config)
 }
