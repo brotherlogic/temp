@@ -135,7 +135,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		QueueName: "temp",
 		RunTime:   time.Now().Add(time.Minute).Unix(),
 		Payload:   &google_protobuf.Any{Value: data},
-		Key:       "temp",
+		Key:       "ntemp",
 	})
 
 	return &pb.ProcResponse{
