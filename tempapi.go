@@ -47,6 +47,32 @@ type DevResp struct {
 	Devices []Device `json:"devices"`
 }
 
+func (s *Server) refresh(ctx context.Context, config *pb.Config) error {
+	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v4/token?client_id=o%v&client_secret=%v&refresh_token=%v&grant_type=refresh_token",
+		config.GetClientId(), config.GetClientSecret(), config.GetRefresh())
+	post, err := http.Post(url, "", strings.NewReader(""))
+	if err != nil {
+		return err
+	}
+
+	defer post.Body.Close()
+	body, err := ioutil.ReadAll(post.Body)
+	if err != nil {
+		return err
+	}
+
+	s.Log(fmt.Sprintf("BOUNCE %v", string(body)))
+
+	cr := &CodeResp{}
+	err = json.Unmarshal(body, cr)
+	if err != nil {
+		return err
+	}
+
+	config.Code = cr.AccessToken
+	return s.saveConfig(ctx, config)
+}
+
 func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcResponse, error) {
 	config, err := s.loadConfig(ctx)
 	if err != nil {
@@ -81,6 +107,14 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	}
 
 	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
+
+	if len(devices.Devices) == 0 {
+		err = s.refresh(ctx, config)
+		if err != nil {
+			return nil, err
+		}
+		return s.Proc(ctx, req)
+	}
 
 	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
