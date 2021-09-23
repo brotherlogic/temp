@@ -4,8 +4,6 @@ go 1.16
 
 require (
 	github.com/brotherlogic/dstore v0.0.0-20210911232556-7a6844e1f86f
-	github.com/brotherlogic/githubcard v0.0.0-20210918015555-69806fd2bf5d // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20210911035745-f8870470321e // indirect
 	github.com/brotherlogic/goserver v0.0.0-20210829185834-0049c0c44546
 	github.com/brotherlogic/keymapper v0.0.0-20210820140329-0a4c6cea65e8
 	github.com/brotherlogic/queue v0.0.0-20210918172324-3a29dd363cb9
