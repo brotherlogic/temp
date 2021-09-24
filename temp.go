@@ -246,7 +246,7 @@ func main() {
 
 	_, err = server.Proc(ctx, &pb.ProcRequest{Debug: true})
 	if err != nil {
-		log.Fatalf("%v", err)
+		log.Fatalf("Unable to do initial proc: %v", err)
 	}
 
 	cancel()
