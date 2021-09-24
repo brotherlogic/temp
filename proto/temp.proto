@@ -21,7 +21,9 @@ message SetConfigRequest{
 
 message SetConfigResponse {}
 
-message ProcRequest {}
+message ProcRequest {
+  bool debug = 1;
+}
 
 message ProcResponse {
   float nest_temperature = 1;
