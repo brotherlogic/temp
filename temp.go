@@ -248,5 +248,10 @@ func main() {
 
 	go server.run()
 
+	_, err = server.Proc(ctx, &pb.ProcRequest{Debug: true})
+	if err != nil {
+		log.Fatalf("%v", err)
+	}
+
 	server.Serve()
 }

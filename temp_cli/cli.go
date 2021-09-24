@@ -45,7 +45,7 @@ func main() {
 			}
 		}
 	case "get":
-		res, err := client.Proc(ctx, &pb.ProcRequest{})
+		res, err := client.Proc(ctx, &pb.ProcRequest{Debug: true})
 		log.Printf("%v -> %v", res, err)
 	}
 }
