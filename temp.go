@@ -243,15 +243,16 @@ func main() {
 		return
 	}
 	server.client = resp.GetKey().GetValue()
-	cancel()
-	conn.Close()
-
-	go server.run()
 
 	_, err = server.Proc(ctx, &pb.ProcRequest{Debug: true})
 	if err != nil {
 		log.Fatalf("%v", err)
 	}
+
+	cancel()
+	conn.Close()
+
+	go server.run()
 
 	server.Serve()
 }
