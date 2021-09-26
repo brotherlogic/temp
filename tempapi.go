@@ -123,8 +123,6 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		return s.Proc(ctx, req)
 	}
 
-	s.Log(fmt.Sprintf("NowHERE %v -> %+v", string(body), devices))
-
 	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 
@@ -178,7 +176,6 @@ func (s *Server) getAuth(ctx context.Context, config *pb.Config, code string) (s
 	if err != nil {
 		return "", "", err
 	}
-	s.Log(fmt.Sprintf("NOW GOT %v -> %v", string(body), cr))
 
 	return cr.AccessToken, cr.RefreshToken, nil
 
@@ -212,6 +209,5 @@ func (s *Server) SetConfig(ctx context.Context, req *pb.SetConfigRequest) (*pb.S
 		config.Refresh = refresh
 	}
 
-	s.Log(fmt.Sprintf("New config %v", config))
 	return &pb.SetConfigResponse{}, s.saveConfig(ctx, config)
 }

@@ -186,8 +186,6 @@ func (s *Server) run() {
 			lastPull.Set(float64(timev.Unix()))
 		}
 
-		s.Log(fmt.Sprintf("%v from %v at %v", kr, string(body), timev))
-
 		time.Sleep(time.Minute)
 	}
 }
