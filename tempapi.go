@@ -114,7 +114,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	}
 
 	if len(devices.Devices) == 0 {
-		s.Log(fmt.Sprintf("FAILED READ %v", string(body)))
+		s.Log(fmt.Sprintf("failed to read %v", string(body)))
 		err = s.refresh(ctx, config)
 		if err != nil {
 			return nil, err
