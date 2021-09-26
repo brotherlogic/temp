@@ -70,8 +70,6 @@ func (s *Server) refresh(ctx context.Context, config *pb.Config) error {
 		return err
 	}
 
-	s.Log(fmt.Sprintf("BOUNCER with client %v, %v, %v, %v -> %v", config.GetClientId(), config.GetClientSecret(), config.GetRefresh(), config.GetProjectId(), string(body)))
-
 	cr := &CodeResp{}
 	err = json.Unmarshal(body, cr)
 	if err != nil {
@@ -116,6 +114,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 	}
 
 	if len(devices.Devices) == 0 {
+		s.Log(fmt.Sprintf("FAILED READ %v", string(body)))
 		err = s.refresh(ctx, config)
 		if err != nil {
 			return nil, err
