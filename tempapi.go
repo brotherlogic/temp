@@ -102,28 +102,34 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		return nil, err
 	}
 
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
 	devices := &DevResp{}
-	err = json.Unmarshal(body, devices)
-	if err != nil {
-		return nil, err
-	}
 
-	if len(devices.Devices) == 0 {
-		s.Log(fmt.Sprintf("failed to read %v", string(body)))
-		err = s.refresh(ctx, config)
+	// 429 is resource exhausted
+	if resp.StatusCode != 429 {
+
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}
-		return s.Proc(ctx, req)
-	}
 
-	ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
-	nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
+		err = json.Unmarshal(body, devices)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(devices.Devices) == 0 {
+			s.Log(fmt.Sprintf("failed to read %v", string(body)))
+			err = s.refresh(ctx, config)
+			if err != nil {
+				return nil, err
+			}
+			return s.Proc(ctx, req)
+		}
+
+		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
+		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
+	}
 
 	var err3 error
 	if !req.GetDebug() {
@@ -143,10 +149,13 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		})
 	}
 
-	return &pb.ProcResponse{
-		NestTemperature: devices.Devices[0].Traits.TemperatureVal.Value,
-		NestHumidity:    float32(devices.Devices[0].Traits.HumidityVal.Value),
-	}, err3
+	if len(devices.Devices) > 0 {
+		return &pb.ProcResponse{
+			NestTemperature: devices.Devices[0].Traits.TemperatureVal.Value,
+			NestHumidity:    float32(devices.Devices[0].Traits.HumidityVal.Value),
+		}, err3
+	}
+	return &pb.ProcResponse{}, err3
 }
 
 type CodeResp struct {
