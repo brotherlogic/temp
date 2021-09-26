@@ -27,6 +27,10 @@ var (
 		Name: "temp_nesthum",
 		Help: "Humidity from the thermostat",
 	})
+	nreup = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_nestreup",
+		Help: "Temperature from the thermostat",
+	})
 )
 
 type Humidity struct {
@@ -52,6 +56,7 @@ type DevResp struct {
 }
 
 func (s *Server) refresh(ctx context.Context, config *pb.Config) error {
+	nreup.Inc()
 	url := fmt.Sprintf("https://www.googleapis.com/oauth2/v4/token?client_id=%v&client_secret=%v&refresh_token=%v&grant_type=refresh_token",
 		config.GetClientId(), config.GetClientSecret(), config.GetRefresh())
 	post, err := http.Post(url, "", strings.NewReader(""))
