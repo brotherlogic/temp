@@ -129,6 +129,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 
 		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
+		lastPull.With(prometheus.Labels{"source": "nest"}).Set(float64(time.Now().Unix()))
 	}
 
 	var err3 error
