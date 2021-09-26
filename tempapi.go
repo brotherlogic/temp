@@ -143,10 +143,10 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		upup := &pb.ProcRequest{}
 		data, _ := proto.Marshal(upup)
 		_, err3 = qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
-			QueueName: fmt.Sprintf("temp-%v", time.Now().Add(time.Minute).Minute()),
+			QueueName: "temp",
 			RunTime:   time.Now().Add(time.Minute).Unix(),
 			Payload:   &google_protobuf.Any{Value: data},
-			Key:       "ntemp",
+			Key:       fmt.Sprintf("ntemp-%v", time.Now().Add(time.Minute).Minute()),
 		})
 	}
 
