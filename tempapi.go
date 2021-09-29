@@ -136,7 +136,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 			return s.Proc(ctx, req)
 		}
 
-		s.Log(fmt.Sprintf("READ: %v", devices))
+		s.Log(fmt.Sprintf("I READ: %v", devices))
 		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 		if devices.Devices[0].Traits.OnVal.Mode == "HEAT" {
