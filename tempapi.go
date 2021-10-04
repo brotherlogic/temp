@@ -35,6 +35,10 @@ var (
 		Name: "temp_mdoe",
 		Help: "Temperature from the thermostat",
 	})
+	nset = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_set_point",
+		Help: "Temperature from the thermostat",
+	})
 )
 
 type Humidity struct {
@@ -49,10 +53,15 @@ type On struct {
 	Mode string `json:"mode"`
 }
 
+type SetP struct {
+	Value float32 `json:"heatCelsius"`
+}
+
 type Trait struct {
 	HumidityVal    Humidity    `json:"sdm.devices.traits.Humidity"`
 	TemperatureVal Temperature `json:"sdm.devices.traits.Temperature"`
 	OnVal          On          `json:"sdm.devices.traits.ThermostatMode"`
+	SetPoint       SetP        `json:"sdm.devices.traits.ThermostatTemperatureSetpoint"`
 }
 
 type Device struct {
@@ -139,6 +148,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		s.Log(fmt.Sprintf("I READ: %v from %v", devices, string(body)))
 		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
+		nset.Set(float64(devices.Devices[0].Traits.SetPoint.Value))
 		if devices.Devices[0].Traits.OnVal.Mode == "HEAT" {
 			nmode.Set(float64(1))
 		} else {
