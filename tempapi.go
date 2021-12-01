@@ -146,7 +146,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 			return s.Proc(ctx, req)
 		}
 
-		s.Log(fmt.Sprintf("I HAVE READ: %v from %v", devices, string(body)))
+		s.Log(fmt.Sprintf("I HAVE READ (%v): %v from %v", devices.Devices[0].Traits.TemperatureVal.Value, devices, string(body)))
 		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 		nset.Set(float64(devices.Devices[0].Traits.SetPoint.Value))
