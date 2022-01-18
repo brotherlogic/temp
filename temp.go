@@ -147,6 +147,10 @@ var (
 		Name: "temp_tvoc",
 		Help: "TVOC measure",
 	})
+	humid = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_humidity",
+		Help: "TVOC measure",
+	})
 	lastPull = promauto.NewGaugeVec(prometheus.GaugeOpts{
 		Name: "temp_last_pull",
 		Help: "TVOC measure",
@@ -178,6 +182,7 @@ func (s *Server) run() {
 
 		temp.Set(float64(kr.InfoAqi.Data.Temp))
 		tvoc.Set(float64(kr.InfoAqi.Data.St03))
+		humid.Set(float64(kr.InfoAqi.Data.Humidity))
 
 		timev, err := time.Parse("2006-01-02T15:04:05Z", kr.InfoAqi.Ts)
 		if err != nil {
