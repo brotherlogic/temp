@@ -168,12 +168,21 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		qclient := qpb.NewQueueServiceClient(conn2)
 		upup := &pb.ProcRequest{}
 		data, _ := proto.Marshal(upup)
-		_, err3 = qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
-			QueueName: "temp",
-			RunTime:   time.Now().Add(time.Minute).Unix(),
-			Payload:   &google_protobuf.Any{Value: data},
-			Key:       fmt.Sprintf("ntemp-%v", time.Now().Add(time.Minute).Minute()),
-		})
+		if req.GetForce() {
+			_, err3 = qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
+				QueueName: "temp",
+				RunTime:   time.Now().Add(time.Minute).Unix(),
+				Payload:   &google_protobuf.Any{Value: data},
+				Key:       fmt.Sprintf("ntemp-%v", time.Now().Add(time.Minute).Minute()),
+			})
+		} else {
+			_, err3 = qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
+				QueueName: "temp",
+				RunTime:   time.Now().Add(time.Minute).Unix(),
+				Payload:   &google_protobuf.Any{Value: data},
+				Key:       fmt.Sprintf("ntemp-%v", time.Now().Add(time.Minute).Minute()),
+			})
+		}
 	}
 
 	if len(devices.Devices) > 0 {

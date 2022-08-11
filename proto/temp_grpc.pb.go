@@ -11,7 +11,6 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-// Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
 // TempServiceClient is the client API for TempService service.
@@ -75,7 +74,7 @@ type UnsafeTempServiceServer interface {
 }
 
 func RegisterTempServiceServer(s grpc.ServiceRegistrar, srv TempServiceServer) {
-	s.RegisterService(&TempService_ServiceDesc, srv)
+	s.RegisterService(&_TempService_serviceDesc, srv)
 }
 
 func _TempService_Proc_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -114,10 +113,7 @@ func _TempService_SetConfig_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-// TempService_ServiceDesc is the grpc.ServiceDesc for TempService service.
-// It's only intended for direct use with grpc.RegisterService,
-// and not to be introspected or modified (even as a copy)
-var TempService_ServiceDesc = grpc.ServiceDesc{
+var _TempService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "temp.TempService",
 	HandlerType: (*TempServiceServer)(nil),
 	Methods: []grpc.MethodDesc{

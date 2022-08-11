@@ -23,6 +23,7 @@ message SetConfigResponse {}
 
 message ProcRequest {
   bool debug = 1;
+  bool force = 2;
 }
 
 message ProcResponse {
