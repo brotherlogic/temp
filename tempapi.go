@@ -174,6 +174,7 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 				RunTime:   time.Now().Add(time.Minute).Unix(),
 				Payload:   &google_protobuf.Any{Value: data},
 				Key:       fmt.Sprintf("ntemp-%v", time.Now().Add(time.Minute).Minute()),
+				Cons:      0.1,
 			})
 		} else {
 			_, err3 = qclient.AddQueueItem(ctx, &qpb.AddQueueItemRequest{
