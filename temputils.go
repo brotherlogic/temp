@@ -13,6 +13,6 @@ func (s *Server) runComputation(ctx context.Context) error {
 	for i := 0; i < 10000; i++ {
 		sum += i
 	}
-	s.Log(fmt.Sprintf("Sum is %v -> %v", sum, time.Now().Sub(t).Nanoseconds()/1000000))
+	s.CtxLog(ctx, fmt.Sprintf("Sum is %v -> %v", sum, time.Now().Sub(t).Nanoseconds()/1000000))
 	return nil
 }

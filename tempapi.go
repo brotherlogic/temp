@@ -137,16 +137,16 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 		}
 
 		if len(devices.Devices) == 0 {
-			s.Log(fmt.Sprintf("Failed to read %v", string(body)))
+			s.CtxLog(ctx, fmt.Sprintf("Failed to read %v", string(body)))
 			err = s.refresh(ctx, config)
 			if err != nil {
-				s.Log(fmt.Sprintf("Failed to refresh: %v", err))
+				s.CtxLog(ctx, fmt.Sprintf("Failed to refresh: %v", err))
 				return nil, err
 			}
 			return s.Proc(ctx, req)
 		}
 
-		s.Log(fmt.Sprintf("I HAVE READ (%v): %v from %v", devices.Devices[0].Traits.TemperatureVal.Value, devices, string(body)))
+		s.CtxLog(ctx, fmt.Sprintf("I HAVE READ (%v): %v from %v", devices.Devices[0].Traits.TemperatureVal.Value, devices, string(body)))
 		ntemp.Set(float64(devices.Devices[0].Traits.TemperatureVal.Value))
 		nhumid.Set(float64(devices.Devices[0].Traits.HumidityVal.Value))
 		nset.Set(float64(devices.Devices[0].Traits.SetPoint.Value))

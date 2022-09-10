@@ -159,39 +159,44 @@ var (
 
 func (s *Server) run() {
 	for true {
-		url := fmt.Sprintf("https://api.kaiterra.com/v1/lasereggs/%v?key=%v", s.client, s.key)
-		resp, err := http.Get(url)
-		if err != nil {
-			s.Log(fmt.Sprintf("Error on get: %v", err))
-			continue
-		}
-
-		body, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			s.Log(fmt.Sprintf("Bad read: %v", err))
-			continue
-		}
-
-		kr := &kaiteraResponse{}
-		err = json.Unmarshal(body, kr)
-		if err != nil {
-			s.Log(fmt.Sprintf("Bad unmarshal: %v", err))
-			continue
-		}
-
-		temp.Set(float64(kr.InfoAqi.Data.Temp))
-		tvoc.Set(float64(kr.InfoAqi.Data.St03))
-		humid.Set(float64(kr.InfoAqi.Data.Humidity))
-
-		timev, err := time.Parse("2006-01-02T15:04:05Z", kr.InfoAqi.Ts)
-		if err != nil {
-			s.Log(fmt.Sprintf("PARSE ERROR from %v -> %v", kr.InfoAqi.Ts, err))
-		} else {
-			lastPull.With(prometheus.Labels{"source": "kaiterra"}).Set(float64(timev.Unix()))
-		}
-
+		ctx, cancel := utils.ManualContext("temp-run", time.Minute)
+		s.runInternal(ctx)
+		cancel()
 		time.Sleep(time.Minute)
+	}
+}
+
+func (s *Server) runInternal(ctx context.Context) {
+	url := fmt.Sprintf("https://api.kaiterra.com/v1/lasereggs/%v?key=%v", s.client, s.key)
+	resp, err := http.Get(url)
+	if err != nil {
+		s.CtxLog(ctx, fmt.Sprintf("Error on get: %v", err))
+		return
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	resp.Body.Close()
+	if err != nil {
+		s.CtxLog(ctx, fmt.Sprintf("Bad read: %v", err))
+		return
+	}
+
+	kr := &kaiteraResponse{}
+	err = json.Unmarshal(body, kr)
+	if err != nil {
+		s.CtxLog(ctx, fmt.Sprintf("Bad unmarshal: %v", err))
+		return
+	}
+
+	temp.Set(float64(kr.InfoAqi.Data.Temp))
+	tvoc.Set(float64(kr.InfoAqi.Data.St03))
+	humid.Set(float64(kr.InfoAqi.Data.Humidity))
+
+	timev, err := time.Parse("2006-01-02T15:04:05Z", kr.InfoAqi.Ts)
+	if err != nil {
+		s.CtxLog(ctx, fmt.Sprintf("PARSE ERROR from %v -> %v", kr.InfoAqi.Ts, err))
+	} else {
+		lastPull.With(prometheus.Labels{"source": "kaiterra"}).Set(float64(timev.Unix()))
 	}
 }
 
