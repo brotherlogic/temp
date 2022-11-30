@@ -3,11 +3,11 @@ module github.com/brotherlogic/temp
 go 1.16
 
 require (
-	github.com/brotherlogic/dstore v0.0.0-20221128070632-7c173ad90cc9
+	github.com/brotherlogic/dstore v0.0.0-20221129072045-a047882367d6
 	github.com/brotherlogic/goserver v0.0.0-20221106165541-0672428e3628
-	github.com/brotherlogic/keymapper v0.0.0-20221129064042-b910a3959d67
-	github.com/brotherlogic/lock v0.0.0-20221129064256-05c256d641f2 // indirect
-	github.com/brotherlogic/queue v0.0.0-20221128065721-c5837ae65748
+	github.com/brotherlogic/keymapper v0.0.0-20221130064524-a1b4dc6e3114
+	github.com/brotherlogic/lock v0.0.0-20221130074553-2dcb78f2a996 // indirect
+	github.com/brotherlogic/queue v0.0.0-20221129073214-454a6575e4bd
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.14.0
 	golang.org/x/net v0.2.0
