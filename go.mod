@@ -3,10 +3,10 @@ module github.com/brotherlogic/temp
 go 1.16
 
 require (
-	github.com/brotherlogic/datastore v0.0.0-20221201132232-16869b22a1fa // indirect
-	github.com/brotherlogic/dstore v0.0.0-20221201092604-81925d9a1e90
+	github.com/brotherlogic/dstore v0.0.0-20221202163703-ee3f35d5fab1
+	github.com/brotherlogic/githubcard v0.0.0-20221202170138-6798fc70b66d // indirect
 	github.com/brotherlogic/goserver v0.0.0-20221106165541-0672428e3628
-	github.com/brotherlogic/keymapper v0.0.0-20221201071707-1813a6ec15af
+	github.com/brotherlogic/keymapper v0.0.0-20221202165530-e72eb92aa32b
 	github.com/brotherlogic/queue v0.0.0-20221201081731-9fb1a3ec63d3
 	github.com/golang/protobuf v1.5.2
 	github.com/prometheus/client_golang v1.14.0
