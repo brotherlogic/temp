@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"time"
@@ -46,9 +47,9 @@ func main() {
 		}
 	case "get":
 		res, err := client.Proc(ctx, &pb.ProcRequest{Debug: false})
-		log.Printf("%v -> %v", res, err)
+		fmt.Printf("%v -> %v\n", res, err)
 	case "force":
 		res, err := client.Proc(ctx, &pb.ProcRequest{Debug: false, Force: true})
-		log.Printf("%v -> %v", res, err)
+		fmt.Printf("%v -> %v\n", res, err)
 	}
 }
