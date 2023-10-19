@@ -8,14 +8,9 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
-	"google.golang.org/grpc/resolver"
 
 	pb "github.com/brotherlogic/temp/proto"
 )
-
-func init() {
-	resolver.Register(&utils.DiscoveryClientResolverBuilder{})
-}
 
 func main() {
 	ctx, cancel := utils.ManualContext("temp-cli", time.Second*10)
