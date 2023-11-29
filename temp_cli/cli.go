@@ -2,19 +2,15 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"time"
 
 	"github.com/brotherlogic/goserver/utils"
-	"google.golang.org/grpc/resolver"
 
 	pb "github.com/brotherlogic/temp/proto"
 )
-
-func init() {
-	resolver.Register(&utils.DiscoveryClientResolverBuilder{})
-}
 
 func main() {
 	ctx, cancel := utils.ManualContext("temp-cli", time.Second*10)
@@ -46,9 +42,9 @@ func main() {
 		}
 	case "get":
 		res, err := client.Proc(ctx, &pb.ProcRequest{Debug: false})
-		log.Printf("%v -> %v", res, err)
+		fmt.Printf("%v -> %v\n", res, err)
 	case "force":
 		res, err := client.Proc(ctx, &pb.ProcRequest{Debug: false, Force: true})
-		log.Printf("%v -> %v", res, err)
+		fmt.Printf("%v -> %v\n", res, err)
 	}
 }

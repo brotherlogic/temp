@@ -30,7 +30,7 @@ const (
 	CONFIG_KEY = "github.com/brotherlogic/temp/config"
 )
 
-//Server main server type
+// Server main server type
 type Server struct {
 	*goserver.GoServer
 	key    string
@@ -147,6 +147,10 @@ var (
 		Name: "temp_tvoc",
 		Help: "TVOC measure",
 	})
+	p25 = promauto.NewGauge(prometheus.GaugeOpts{
+		Name: "temp_p25",
+		Help: "P25 Measure",
+	})
 	humid = promauto.NewGauge(prometheus.GaugeOpts{
 		Name: "temp_humidity",
 		Help: "TVOC measure",
@@ -191,6 +195,7 @@ func (s *Server) runInternal(ctx context.Context) {
 	temp.Set(float64(kr.InfoAqi.Data.Temp))
 	tvoc.Set(float64(kr.InfoAqi.Data.St03))
 	humid.Set(float64(kr.InfoAqi.Data.Humidity))
+	p25.Set(float64(kr.InfoAqi.Data.Pm25))
 
 	timev, err := time.Parse("2006-01-02T15:04:05Z", kr.InfoAqi.Ts)
 	if err != nil {

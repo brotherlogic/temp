@@ -1,16 +1,39 @@
 module github.com/brotherlogic/temp
 
-go 1.16
+go 1.20
 
 require (
-	github.com/brotherlogic/dstore v0.0.0-20230101070316-8cbb6f580f4f
-	github.com/brotherlogic/goserver v0.0.0-20230106225431-4d4abea9318a
+	github.com/brotherlogic/dstore v0.0.0-20231020041132-a9b977096542
+	github.com/brotherlogic/goserver v0.0.0-20230726200050-779ae6811580
 	github.com/brotherlogic/keymapper v0.0.0-20230108072843-3e2224631447
-	github.com/brotherlogic/logging v0.0.0-20230108082501-1829ce3e39d8 // indirect
-	github.com/brotherlogic/queue v0.0.0-20230108023010-bd2823604df8
-	github.com/golang/protobuf v1.5.2
-	github.com/prometheus/client_golang v1.14.0
-	golang.org/x/net v0.7.0
-	google.golang.org/grpc v1.51.0
-	google.golang.org/protobuf v1.28.1
+	github.com/brotherlogic/queue v0.0.0-20231128202719-82aaaf1b1426
+	github.com/golang/protobuf v1.5.3
+	github.com/prometheus/client_golang v1.17.0
+	golang.org/x/net v0.19.0
+	google.golang.org/grpc v1.59.0
+	google.golang.org/protobuf v1.31.0
+)
+
+require (
+	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20231123021856-d6aadc88185f // indirect
+	github.com/brotherlogic/datastore v0.0.0-20231127024940-022f3c51671a // indirect
+	github.com/brotherlogic/discovery v0.0.0-20231127025249-bf72f4780b6b // indirect
+	github.com/brotherlogic/githubcard v0.0.0-20231123005034-18cabbf5be66 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20231127030538-6909d1590f68 // indirect
+	github.com/brotherlogic/keystore v0.0.0-20231127034950-097f02370931 // indirect
+	github.com/brotherlogic/lock v0.0.0-20231127021037-b964c37bc51c // indirect
+	github.com/brotherlogic/logging v0.0.0-20231127040122-05cb513d2544 // indirect
+	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
+	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/matttproud/golang_protobuf_extensions/v2 v2.0.0 // indirect
+	github.com/mitchellh/go-ps v1.0.0 // indirect
+	github.com/prometheus/client_model v0.5.0 // indirect
+	github.com/prometheus/common v0.45.0 // indirect
+	github.com/prometheus/procfs v0.12.0 // indirect
+	github.com/struCoder/pidusage v0.2.1 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231127180814-3a041ad873d4 // indirect
 )
