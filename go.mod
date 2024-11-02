@@ -7,7 +7,7 @@ toolchain go1.23.0
 require (
 	github.com/brotherlogic/dstore v0.0.0-20241102021053-fd51520579ab
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
-	github.com/brotherlogic/keymapper v0.0.0-20241026070031-74c45baadc2e
+	github.com/brotherlogic/keymapper v0.0.0-20241102075032-f46650400765
 	github.com/brotherlogic/queue v0.0.0-20241030100031-c43fce27c135
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.5
