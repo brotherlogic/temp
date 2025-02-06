@@ -3,7 +3,7 @@ module github.com/brotherlogic/temp
 go 1.23.2
 
 require (
-	github.com/brotherlogic/dstore v0.0.0-20250130045604-092b9bc7f420
+	github.com/brotherlogic/dstore v0.0.0-20250206121546-700018ab7b9a
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keymapper v0.0.0-20250130165319-1eee5cbedde7
 	github.com/brotherlogic/queue v0.0.0-20250205234120-4d8bbedeff34
@@ -11,12 +11,12 @@ require (
 	github.com/prometheus/client_golang v1.20.5
 	golang.org/x/net v0.34.0
 	google.golang.org/grpc v1.70.0
-	google.golang.org/protobuf v1.36.4
+	google.golang.org/protobuf v1.36.5
 )
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250130155410-4c45e0ab99a8 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250206161325-2dc127ca1bb4 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250113225754-a9cab19c721e // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250204233028-6e402a2eb49d // indirect
