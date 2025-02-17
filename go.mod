@@ -5,8 +5,8 @@ go 1.23.2
 require (
 	github.com/brotherlogic/dstore v0.0.0-20250217122957-665380001318
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
-	github.com/brotherlogic/keymapper v0.0.0-20250217113558-6cd245e4a8f4
-	github.com/brotherlogic/queue v0.0.0-20250217113504-d05934cdd018
+	github.com/brotherlogic/keymapper v0.0.0-20250217124842-4ca125756c10
+	github.com/brotherlogic/queue v0.0.0-20250217124813-0928fdbf03e7
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.20.5
 	golang.org/x/net v0.35.0
@@ -16,7 +16,7 @@ require (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250217114905-ce919d212d0c // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250217124556-1b26173eed42 // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250113225754-a9cab19c721e // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250217123435-e03dc24208ae // indirect
