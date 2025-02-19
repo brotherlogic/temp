@@ -8,7 +8,7 @@ require (
 	github.com/brotherlogic/keymapper v0.0.0-20250219073955-528c404a8c75
 	github.com/brotherlogic/queue v0.0.0-20250219013835-b729bdd5290c
 	github.com/golang/protobuf v1.5.4
-	github.com/prometheus/client_golang v1.20.5
+	github.com/prometheus/client_golang v1.21.0
 	golang.org/x/net v0.35.0
 	google.golang.org/grpc v1.70.0
 	google.golang.org/protobuf v1.36.5
