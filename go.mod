@@ -21,7 +21,7 @@ require (
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250224185007-06faa9dbc4e5 // indirect
 	github.com/brotherlogic/githubridge v0.2848.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20250224194110-78ff4b5f1318 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20250224202930-351aad526bb8 // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
 	github.com/brotherlogic/lock v0.0.0-20250224165512-535036b4a353 // indirect
 	github.com/brotherlogic/logging v0.0.0-20250224194340-aee2154f71bd // indirect
