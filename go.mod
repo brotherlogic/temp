@@ -3,7 +3,7 @@ module github.com/brotherlogic/temp
 go 1.23.2
 
 require (
-	github.com/brotherlogic/dstore v0.0.0-20250308045118-4c2bdb04ab1a
+	github.com/brotherlogic/dstore v0.0.0-20250308045834-e6963818196d
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keymapper v0.0.0-20250308035855-21d3005cac1b
 	github.com/brotherlogic/queue v0.0.0-20250308013734-42af79114007
@@ -21,7 +21,7 @@ require (
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
 	github.com/brotherlogic/githubcard v0.0.0-20250308040656-a2e9a127b39e // indirect
 	github.com/brotherlogic/githubridge v0.2848.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20250308041940-2e6d135a0ee7 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20250308045857-83dbfbc9512e // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
 	github.com/brotherlogic/lock v0.0.0-20250308041359-76c829becb35 // indirect
 	github.com/brotherlogic/logging v0.0.0-20250308045505-df7d130a0db4 // indirect
