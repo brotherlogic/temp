@@ -3,7 +3,7 @@ module github.com/brotherlogic/temp
 go 1.23.2
 
 require (
-	github.com/brotherlogic/dstore v0.0.0-20250308065004-f0ef2072401c
+	github.com/brotherlogic/dstore v0.0.0-20250308075429-6e8ed7892306
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keymapper v0.0.0-20250308035855-21d3005cac1b
 	github.com/brotherlogic/queue v0.0.0-20250308013734-42af79114007
