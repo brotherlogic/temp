@@ -6,7 +6,7 @@ require (
 	github.com/brotherlogic/dstore v0.0.0-20250309081455-22a0a22a3c3e
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/keymapper v0.0.0-20250309094310-21dd5321a686
-	github.com/brotherlogic/queue v0.0.0-20250309082916-c98d311cba88
+	github.com/brotherlogic/queue v0.0.0-20250309094726-217b7d73dea1
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
 	golang.org/x/net v0.37.0
