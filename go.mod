@@ -5,7 +5,7 @@ go 1.23.2
 require (
 	github.com/brotherlogic/dstore v0.0.0-20250310012228-afbf0008ea7d
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
-	github.com/brotherlogic/keymapper v0.0.0-20250310010517-c2ecaeb8e4d0
+	github.com/brotherlogic/keymapper v0.0.0-20250310020205-24ce7fad1079
 	github.com/brotherlogic/queue v0.0.0-20250310010230-9bc48d4bac8d
 	github.com/golang/protobuf v1.5.4
 	github.com/prometheus/client_golang v1.21.1
