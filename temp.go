@@ -258,9 +258,9 @@ func main() {
 	server.client = resp.GetKey().GetValue()
 
 	_, err = server.Proc(ctx, &pb.ProcRequest{Debug: true})
-	if err != nil {
-		log.Fatalf("Unable to do initial proc: %v", err)
-	}
+	//if err != nil {
+	//	log.Fatalf("Unable to do initial proc: %v", err)
+	//}
 
 	cancel()
 	conn.Close()
