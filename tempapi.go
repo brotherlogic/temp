@@ -99,6 +99,7 @@ func (s *Server) refresh(ctx context.Context, config *pb.Config) error {
 }
 
 func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcResponse, error) {
+	s.CtxLog(ctx, "Running Proc")
 	config, err := s.loadConfig(ctx)
 	if err != nil {
 		return nil, err
@@ -141,9 +142,8 @@ func (s *Server) Proc(ctx context.Context, req *pb.ProcRequest) (*pb.ProcRespons
 			err = s.refresh(ctx, config)
 			if err != nil {
 				s.CtxLog(ctx, fmt.Sprintf("Failed to refresh: %v", err))
-				return nil, err
 			}
-			return s.Proc(ctx, req)
+			return nil, err
 		}
 
 		s.CtxLog(ctx, fmt.Sprintf("I HAVE READ (%v): %v from %v", devices.Devices[0].Traits.TemperatureVal.Value, devices, string(body)))
